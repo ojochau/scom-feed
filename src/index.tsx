@@ -73,6 +73,7 @@ interface ScomFeedElement extends ControlElement {
     onCommunityButtonClicked?: callbackType;
     onUnlockPostButtonClicked?: asyncCallbackType;
     onOpenDesigner?: openDesignerCallback;
+    onAvatarClick?: (npub: string) => void;
     isPostAudienceShown?: boolean;
     isPublicPostLabelShown?: boolean;
     postContextMenuActions?: IPostContextMenuAction[];
@@ -163,6 +164,7 @@ export default class ScomFeed extends Module {
     onCommunityButtonClicked: callbackType;
     onUnlockPostButtonClicked: asyncCallbackType;
     onOpenDesigner: openDesignerCallback;
+    onAvatarClick: (npub: string) => void;
     private _postContextMenuActions: IPostContextMenuAction[] = [];
 
     tag = {
@@ -475,7 +477,7 @@ export default class ScomFeed extends Module {
                 icon: {name: 'copy'},
                 tooltip: '$the_link_has_been_copied_successfully',
                 onClick: () => {
-                    application.copyToClipboard(`${window.location.origin}/#!/e/${this.currentPost.id}`);
+                    application.copyToClipboard(`${window.location.origin}/e/${this.currentPost.id}`);
                     this.mdActions.visible = false;
                 }
             },
@@ -733,6 +735,7 @@ export default class ScomFeed extends Module {
         postEl.onBookmarkClicked = (target: Control, data: IPost, event?: MouseEvent) => this.onBookmarkButtonClicked(postEl, event);
         postEl.onCommunityClicked = (target: Control, data: IPost, event?: MouseEvent) => this.onCommunityButtonClicked(postEl, event);
         postEl.onUnlockPostClicked = async (target: Control, data: IPost, event?: MouseEvent) => await this.handleUnlockPostButtonClicked(postEl, post, event);
+        postEl.onAvatarClick = (npub: string) => this.onAvatarClick(npub);
         return postEl;
     }
 
@@ -1024,6 +1027,7 @@ export default class ScomFeed extends Module {
         this.onCommunityButtonClicked = this.getAttribute('onCommunityButtonClicked', true) || this.onCommunityButtonClicked;
         this.onUnlockPostButtonClicked = this.getAttribute('onUnlockPostButtonClicked', true) || this.onUnlockPostButtonClicked;
         this.onOpenDesigner = this.getAttribute('onOpenDesigner', true) || this.onOpenDesigner;
+        this.onAvatarClick = this.getAttribute('onAvatarClick', true) || this.onAvatarClick;
         this._postContextMenuActions = this.getAttribute('postContextMenuActions', true) || this._postContextMenuActions;
         const apiBaseUrl = this.getAttribute('apiBaseUrl', true);
         if (apiBaseUrl) this.apiBaseUrl = apiBaseUrl;
