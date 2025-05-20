@@ -894,7 +894,7 @@ define("@scom/scom-feed", ["require", "exports", "@ijstech/components", "@scom/s
                     icon: { name: 'copy' },
                     tooltip: '$the_link_has_been_copied_successfully',
                     onClick: () => {
-                        components_2.application.copyToClipboard(`${window.location.origin}/#!/e/${this.currentPost.id}`);
+                        components_2.application.copyToClipboard(`${window.location.origin}/e/${this.currentPost.id}`);
                         this.mdActions.visible = false;
                     }
                 },
@@ -1102,6 +1102,7 @@ define("@scom/scom-feed", ["require", "exports", "@ijstech/components", "@scom/s
             postEl.onBookmarkClicked = (target, data, event) => this.onBookmarkButtonClicked(postEl, event);
             postEl.onCommunityClicked = (target, data, event) => this.onCommunityButtonClicked(postEl, event);
             postEl.onUnlockPostClicked = async (target, data, event) => await this.handleUnlockPostButtonClicked(postEl, post, event);
+            postEl.onAvatarClick = (npub) => this.onAvatarClick(npub);
             return postEl;
         }
         sortPosts(posts) {
@@ -1394,6 +1395,7 @@ define("@scom/scom-feed", ["require", "exports", "@ijstech/components", "@scom/s
             this.onCommunityButtonClicked = this.getAttribute('onCommunityButtonClicked', true) || this.onCommunityButtonClicked;
             this.onUnlockPostButtonClicked = this.getAttribute('onUnlockPostButtonClicked', true) || this.onUnlockPostButtonClicked;
             this.onOpenDesigner = this.getAttribute('onOpenDesigner', true) || this.onOpenDesigner;
+            this.onAvatarClick = this.getAttribute('onAvatarClick', true) || this.onAvatarClick;
             this._postContextMenuActions = this.getAttribute('postContextMenuActions', true) || this._postContextMenuActions;
             const apiBaseUrl = this.getAttribute('apiBaseUrl', true);
             if (apiBaseUrl)

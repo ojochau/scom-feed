@@ -587,6 +587,7 @@ declare module "@scom/scom-feed" {
         onCommunityButtonClicked?: callbackType;
         onUnlockPostButtonClicked?: asyncCallbackType;
         onOpenDesigner?: openDesignerCallback;
+        onAvatarClick?: (npub: string) => void;
         isPostAudienceShown?: boolean;
         isPublicPostLabelShown?: boolean;
         postContextMenuActions?: IPostContextMenuAction[];
@@ -646,6 +647,7 @@ declare module "@scom/scom-feed" {
         onCommunityButtonClicked: callbackType;
         onUnlockPostButtonClicked: asyncCallbackType;
         onOpenDesigner: openDesignerCallback;
+        onAvatarClick: (npub: string) => void;
         private _postContextMenuActions;
         tag: {
             light: {};
